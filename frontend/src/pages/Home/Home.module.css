@@ -1,0 +1,21 @@
+.cardWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center; /*can also use margin: auto in .card for these above 3 line*/
+  margin-top: 6em;
+}
+
+.text {
+  font-size: 22px;
+  line-height: 1.6;
+  color: #c4c5c4;
+  margin-bottom: 40px;
+}
+
+.signinWrapper {
+  margin-top: 25px;
+}
+
+.hasInvite {
+  color: rgb(92, 167, 238);
+}

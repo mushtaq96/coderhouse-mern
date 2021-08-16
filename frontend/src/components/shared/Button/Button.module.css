@@ -1,0 +1,23 @@
+.button {
+  background-color: rgb(92, 167, 238);
+  padding: 10px 20px;
+  border: none;
+  outline: none;
+  display: flex;
+  align-items: center;
+  margin: 0 auto;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.button:hover {
+  background: rgb(1 71 140);
+}
+
+.arrow {
+  margin-left: 12px;
+}
