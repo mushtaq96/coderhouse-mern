@@ -2,7 +2,7 @@ POST http://localhost:5500/api/send-otp HTTP/1.1
 Content-Type: application/json
 
 {
-    "phone":"+818025650498"
+    "phone":"+49015166271116"
 }
 
 ###
@@ -10,7 +10,7 @@ POST http://localhost:5500/api/verify-otp HTTP/1.1
 Content-Type: application/json
 
 {
-    "phone":"+818025650498",
-    "otp": 4960,
-    "hash": "cf819694546115f61ae68a7a632ac6b5ca1df8f85e2089273fb97d350bbed9ee.1634439738319"
+    "phone":"+49015166271116",
+    "otp": 9733,
+    "hash": "93f73a60bf4b497dc7bcf54c42d4dab62791372de4b49dbcae0427b32b029a1e.1664750682532.1634439738319"
 }
