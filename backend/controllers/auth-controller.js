@@ -2,7 +2,7 @@ const otpService = require('../services/otp-service');
 const hashService = require('../services/hash-service');
 const userService = require('../services/user-service');
 const tokenService = require('../services/token-service');
-
+const UserDto = require('../dtos/user-dto');
 
 class AuthController{
     async sendOtp(req, res){
@@ -72,7 +72,8 @@ class AuthController{
             httpOnly: true //if this value is set the cookie is secure, js cannot read it on client.
         });
 
-        res.json({accessToken, user});
+        const userDto = new UserDto(user);
+        res.json({accessToken, user: userDto});
     }
 }
 
