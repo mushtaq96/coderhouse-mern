@@ -3,11 +3,11 @@ const express = require('express');
 const app = express();
 const router = require('./routes');
 const DbConnect = require('./database');
-const cors = require('cors');
+const cors = require('cors'); // preventing CORS error, whitelisting the other domain
 const corsOption = {
-    origin: ['http://localhost:3000'],
+    origin: ['http://localhost:3000'],// frontend is running here
 };
-app.use(cors(corsOption));
+app.use(cors(corsOption)); // express uses this format i.e app.use() to apply respective middlewares
 
 
 const PORT = process.env.PORT || 5500;

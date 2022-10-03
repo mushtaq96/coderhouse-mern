@@ -54,7 +54,7 @@ class AuthController{
         let user;        
         
         try {
-            user = userService.findUser({phone: phone});
+            user = await userService.findUser({phone: phone});
             if(!user){
                 user = await userService.createUser({phone: phone});
             }
@@ -72,7 +72,7 @@ class AuthController{
             httpOnly: true //if this value is set the cookie is secure, js cannot read it on client.
         });
 
-        res.json({accessToken});
+        res.json({accessToken, user});
     }
 }
 
