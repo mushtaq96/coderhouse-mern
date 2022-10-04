@@ -5,11 +5,12 @@ import Activate from './pages/Activate/Activate';
 import Authenticate from './pages/Authenticate/Authenticate';
 import Home from './pages/Home/Home';
 import Rooms from './pages/Rooms/Rooms';
+import { useSelector } from 'react-redux';
 
-const isAuth=false;
-const user={
-  activated:false,
-};
+// const isAuth=false;
+// const user={
+//   activated:false,
+// };
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
 
 //guest area, semi-protected area, protected area components to restrict
 const GuestRoute = ({children,...rest}) =>{
+  const {isAuth} = useSelector((state) => state.auth)
   //check if user is logged in or is active or not?
   return (
     <Route {...rest}
@@ -57,6 +59,7 @@ const GuestRoute = ({children,...rest}) =>{
 }
 
 const SemiProtectedRoute = ({children,...rest})=>{
+  const {user, isAuth} = useSelector((state) => state.auth);
   return(
     <Route {...rest}
     render={({location}) => {
@@ -84,6 +87,7 @@ const SemiProtectedRoute = ({children,...rest})=>{
 }
 
 const ProtectedRoute = ({children,...rest})=>{
+  const {user, isAuth} = useSelector((state) => state.auth);
   return(
     <Route {...rest}
     render={({location}) => {

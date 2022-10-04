@@ -5,14 +5,18 @@ import TextInput from "../../../components/shared/TextInput/TextInput";
 import styles from "./StepOtp.module.css";
 import { verifyOtp } from "../../../http";
 import { useSelector } from "react-redux"; // fetch data from store
+import { setAuth } from "../../../store/authSlice";
+import { useDispatch } from "react-redux";//use this hook
 
-const StepOtp = ({ onNext }) => {
+const StepOtp = () => {
   const [otp, setOtp] = useState("");
   const {phone, hash} = useSelector((state)=>state.auth.otp)
+  const dispatch = useDispatch();
   async function submit() {
     try{
       const {data} = await verifyOtp({otp, phone, hash});
       console.log(data); // contains access token
+      dispatch(setAuth(data));
     } catch(e){
       console.log(e);
     }
