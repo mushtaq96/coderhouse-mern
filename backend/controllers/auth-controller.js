@@ -64,16 +64,26 @@ class AuthController{
         }
 
         //jwt tokens generation
-        const { accessToken, refreshToken } = tokenService.generateTokens({_id: user._id, activated: false});
+        const { accessToken, refreshToken } = tokenService.generateTokens({
+            _id: user._id,
+            activated: false
+        });
+
+        await tokenService.storeRefreshToken(refreshToken, user._id)
 
         //custom cookie setting
         res.cookie('refreshtoken', refreshToken, {
             maxAge: 1000*60*60*24*30,//valid for 30 days
-            httpOnly: true //if this value is set the cookie is secure, js cannot read it on client.
+            httpOnly: true //if this value is set the cookie is secure, js cannot read it on client prevents xss attacks.
+        });
+
+        res.cookie('accessToken', accessToken, {
+            maxAge: 1000 * 60 * 60 * 24 * 30,
+            httpOnly: true
         });
 
         const userDto = new UserDto(user);
-        res.json({accessToken, user: userDto});
+        res.json({user: userDto, auth: true});//auth - true is a flag for the client to understand
     }
 }
 

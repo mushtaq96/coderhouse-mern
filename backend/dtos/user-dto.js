@@ -14,3 +14,6 @@ class userDto{
 }
 
 module.exports = userDto;
+
+// what is the purpose of this file? 
+// data transfer object - used to transform the data received from the mongo database i.e object (in this case)

@@ -2,6 +2,7 @@ import axios from 'axios';
 
 const api = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
+  withCredentials: true, // when you need to set the cookies, along the request
   headers: {
     'Content-type': 'application/json',
     Accept: 'application/json',
