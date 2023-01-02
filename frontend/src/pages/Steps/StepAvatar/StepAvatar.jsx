@@ -5,7 +5,8 @@ import styles from './StepAvatar.module.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { useState } from 'react';
 import { setAvatar } from '../../../store/activateSlice';
-import {activate} from '../../../http'
+import {activate} from '../../../http';
+import {setAuth} from '../../../store/authSlice';
 
 
 const StepAvatar = ({onNext}) => {
@@ -21,7 +22,7 @@ const StepAvatar = ({onNext}) => {
             console.log(reader.result);
             setImage(reader.result);//processed base64 stream
             dispatch(setAvatar(reader.result));
-        }
+        };
         
         console.log(e)
     }
@@ -29,6 +30,10 @@ const StepAvatar = ({onNext}) => {
         //use try catch for server requests
         try{
             const {data} = await activate({name, avatar})      
+            if(data.auth){
+                dispatch(setAuth(data));
+
+            }
             console.log(data);      
         }catch(error){
             console.log(error);

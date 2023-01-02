@@ -25,6 +25,10 @@ class TokenService{
       console.log(e.message)
     }
   }
+
+  async verifyAccessToken(token){
+    return jwt.verify(token, accessTokenSecret);
+  }
   
 }
 module.exports = new TokenService();
