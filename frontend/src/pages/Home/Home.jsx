@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import Button from "../../components/shared/Button/Button";
 import Card from "../../components/shared/Card/Card";
 import styles from "./Home.module.css";
@@ -14,7 +14,7 @@ const Home = () => {
 
   const history = useHistory();
   function startRegister() {
-    history.push("/register");
+    history.push("/authenticate");
     console.log("button lcicked");
   }
   return (
@@ -26,17 +26,12 @@ const Home = () => {
           sure nothing breaks :)
         </p>
         <div>
-          <Button onClick={startRegister} text="get your username" />
+          <Button onClick={startRegister} text="Los Ghets started" />
         </div>
         <div className={styles.signinWrapper}>
           <span className={styles.hasInvite}>Have an invite text?</span>
-          <Link style={signInLinkStyle} to="/login">
-            Sign In
-          </Link>
         </div>
       </Card>
-      {/*passing
-      these as props*/}
     </div>
   );
 };
