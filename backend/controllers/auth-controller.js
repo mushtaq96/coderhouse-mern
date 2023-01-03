@@ -16,14 +16,14 @@ class AuthController{
         //hash the otp logic
         const ttl = 1000 * 60 * 2;//2 min to login, expire time
         const expires = Date.now() + ttl;
-        const data = `${phone}.${otp}.${expires}`;
+        const data = `${phone}.${otp}.${expires}`;//
         const hash = hashService.hashOtp(data);
 
         //send otp
         try{
             //await otpService.sendBySms(phone, otp);
             res.json({
-                hash:`${hash}.${expires}`,
+                hash:`${hash}.${expires}`,//expires is done twice bcz - the second time expires is a timestamp
                 phone,
                 otp,
             });

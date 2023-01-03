@@ -74,3 +74,6 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 
 
 ### http related things are in `http` folder
+
+
+The withCredentials property in the Axios library allows the request to be sent with credentials such as cookies or authorization headers. When this property is set to true, it indicates that the request should include any credentials associated with the current session. This is useful when making requests to a server that requires authentication, as it allows the server to identify the user making the request. 
