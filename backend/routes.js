@@ -9,5 +9,7 @@ router.post('/api/verify-otp', authController.verifyOtp);
 router.post('/api/activate', authMiddleware, activateController.activate);
 //this should be protected. allow this only for people who have valid access token
 
+router.post('/api/refresh', authController.refresh);
+
 
 module.exports = router;
