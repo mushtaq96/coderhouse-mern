@@ -29,6 +29,7 @@ const StepAvatar = ({onNext}) => {
         console.log(e)
     }
     async function submit(){
+        if(!name || !avatar) return;
         setLoading(true); //start the animation 
         //use try catch for server requests
         try{
