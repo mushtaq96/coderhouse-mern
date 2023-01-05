@@ -3,6 +3,7 @@ const hashService = require('../services/hash-service');
 const userService = require('../services/user-service');
 const tokenService = require('../services/token-service');
 const UserDto = require('../dtos/user-dto');
+const { json } = require('express');
 
 class AuthController{
     async sendOtp(req, res){
@@ -143,6 +144,17 @@ class AuthController{
         //send response
         const userDto = new UserDto(user);
         res.json({user: userDto, auth: true});//auth - true is a flag for the client to understand
+    }
+
+    async logout(req, res){
+        const { refreshToken } = req.cookies;
+        //delete the refresh token from database
+        await tokenService.removeToken(refreshToken);
+
+        //delete cookies i.e clearn token in it
+        res.clearCookie('refreshToken');
+        res.clearCookie('accessToken');
+        res.json({user: null, auth: false});
     }
 }
 
