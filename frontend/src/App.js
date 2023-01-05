@@ -6,6 +6,7 @@ import Authenticate from './pages/Authenticate/Authenticate';
 import Home from './pages/Home/Home';
 import Rooms from './pages/Rooms/Rooms';
 import { useSelector } from 'react-redux';
+import { useLoadingWithRefresh } from './hooks/useLoadingWithRefresh';
 
 // const isAuth=false;
 // const user={
@@ -13,8 +14,13 @@ import { useSelector } from 'react-redux';
 // };
 
 function App() {
-  return (
-    <BrowserRouter>
+	//call refresh endpoint
+	//custom hooks
+	const {loading} = useLoadingWithRefresh();
+  	return loading ? (
+		'Loading...'
+	):(
+	<BrowserRouter>
       <Navigation/> {/*this is shared accross all web pages in the project*/ }
       <Switch>
         <GuestRoute path="/" exact>

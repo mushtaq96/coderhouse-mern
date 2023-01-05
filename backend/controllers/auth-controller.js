@@ -72,7 +72,7 @@ class AuthController{
         await tokenService.storeRefreshToken(refreshToken, user._id)
 
         //custom cookie setting
-        res.cookie('refreshtoken', refreshToken, {
+        res.cookie('refreshToken', refreshToken, {
             maxAge: 1000 * 60 * 60 * 24 * 30,//valid for 30 days
             httpOnly: true //if this value is set the cookie is secure, js cannot read it on client prevents xss attacks.
         });
@@ -129,7 +129,7 @@ class AuthController{
         //put inside cookie
         //custom cookie setting 
         //these lines can be refactored
-        res.cookie('refreshtoken', refreshToken, {
+        res.cookie('refreshToken', refreshToken, {
             maxAge: 1000*60*60*24*30,//valid for 30 days
             httpOnly: true //if this value is set the cookie is secure, js cannot read it on client prevents xss attacks.
         });
