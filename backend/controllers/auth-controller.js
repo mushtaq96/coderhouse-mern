@@ -3,6 +3,7 @@ const hashService = require('../services/hash-service');
 const userService = require('../services/user-service');
 const tokenService = require('../services/token-service');
 const UserDto = require('../dtos/user-dto');
+const { json } = require('express');
 
 class AuthController{
     async sendOtp(req, res){
@@ -16,14 +17,14 @@ class AuthController{
         //hash the otp logic
         const ttl = 1000 * 60 * 2;//2 min to login, expire time
         const expires = Date.now() + ttl;
-        const data = `${phone}.${otp}.${expires}`;
+        const data = `${phone}.${otp}.${expires}`;//
         const hash = hashService.hashOtp(data);
 
         //send otp
         try{
             //await otpService.sendBySms(phone, otp);
             res.json({
-                hash:`${hash}.${expires}`,
+                hash:`${hash}.${expires}`,//expires is done twice bcz - the second time expires is a timestamp
                 phone,
                 otp,
             });
@@ -72,8 +73,8 @@ class AuthController{
         await tokenService.storeRefreshToken(refreshToken, user._id)
 
         //custom cookie setting
-        res.cookie('refreshtoken', refreshToken, {
-            maxAge: 1000*60*60*24*30,//valid for 30 days
+        res.cookie('refreshToken', refreshToken, {
+            maxAge: 1000 * 60 * 60 * 24 * 30,//valid for 30 days
             httpOnly: true //if this value is set the cookie is secure, js cannot read it on client prevents xss attacks.
         });
 
@@ -84,6 +85,76 @@ class AuthController{
 
         const userDto = new UserDto(user);
         res.json({user: userDto, auth: true});//auth - true is a flag for the client to understand
+    }
+
+    async refresh(req, res){
+        //get refresh token from cookie
+        const {refreshToken: refreshTokenFromCookie} = req.cookies;//refreshTokenFromCookie is an alias
+        //check if token is valid
+        let userData;
+        try{
+            userData = await tokenService.verifyRefreshToken(refreshTokenFromCookie);
+        }catch(error){
+            return res.status(401).json({message:'Invalid token'});
+        }
+       
+        //check if token is in db
+        try{
+            const token = await tokenService.findRefreshToken(
+                userData._id, 
+                refreshTokenFromCookie
+            );
+            if(!token){
+                return res.status(401).json({message: "Unauthorized, Invalid Token"})
+            }
+        }catch(error){
+            return res.status(500).json({message:'Internal error'});//since it is a db error
+        }
+       
+        //check if valid user
+        const user = await userService.findUser({_id: userData._id});
+        if(!user){
+            return res.status(404).json({message:'No user'});
+
+        }
+        //generate new tokens
+        const {refreshToken, accessToken} = tokenService.generateTokens({_id: userData._id});
+
+        //update refresh token in db
+        try{
+            await tokenService.updateRefreshToken(userData._id, refreshToken);
+        }catch(error){
+            return res.status(500).json({message:'Internal error'});//since it is a db error
+        }
+        
+        //put inside cookie
+        //custom cookie setting 
+        //these lines can be refactored
+        res.cookie('refreshToken', refreshToken, {
+            maxAge: 1000*60*60*24*30,//valid for 30 days
+            httpOnly: true //if this value is set the cookie is secure, js cannot read it on client prevents xss attacks.
+        });
+
+        res.cookie('accessToken', accessToken, {
+            maxAge: 1000 * 60 * 60 * 24 * 30,
+            httpOnly: true
+        });
+
+        
+        //send response
+        const userDto = new UserDto(user);
+        res.json({user: userDto, auth: true});//auth - true is a flag for the client to understand
+    }
+
+    async logout(req, res){
+        const { refreshToken } = req.cookies;
+        //delete the refresh token from database
+        await tokenService.removeToken(refreshToken);
+
+        //delete cookies i.e clearn token in it
+        res.clearCookie('refreshToken');
+        res.clearCookie('accessToken');
+        res.json({user: null, auth: false});
     }
 }
 

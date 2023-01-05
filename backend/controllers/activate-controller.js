@@ -13,7 +13,7 @@ class ActivateController{
         //there is an error when there is no stream of data for existing profile pic
 
         //image base64 convert to an image to store in server file system
-        const buffer = Buffer.from(avatar.replace(/^data:image\/jpeg;base64,/, ''), 'base64');
+        const buffer = Buffer.from(avatar.replace(/^data:image\/(png|jpg|jpeg);base64,/, ''), 'base64');//check the end of file
         const imagePath = `${Date.now()}-${Math.round(
             Math.random() * 1e9
         )}.png`;
@@ -46,3 +46,11 @@ class ActivateController{
 }
 
 module.exports = new ActivateController();
+
+
+// The ^ character at the beginning of the regular expression indicates that the pattern should match the beginning of the string. 
+// The / characters are used to enclose the regular expression pattern. 
+// The (png|jpg|jpeg) part of the pattern matches any of the three image file extensions: png, jpg, or jpeg. The data:image\/ part of the pattern matches the string "data:image/". 
+// The ;base64, part of the pattern matches the string ";base64,". 
+// Finally, the $ character at the end of the regular expression indicates that the pattern should match the end of the string.
+

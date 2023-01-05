@@ -6,7 +6,7 @@ module.exports = async function(req, res, next){
         if(!accessToken){
             throw new Error();//goes to catch block
         }
-        const userData = await tokenService.verifyAccessToken(accessToken);
+        const userData = await tokenService.verifyAccessToken(accessToken);//this line
 
         if(!userData){
             throw new Error();//goes to catch block
@@ -20,5 +20,5 @@ module.exports = async function(req, res, next){
         res.status(401).json({message:'Invalid token'});
     }
 
-}
+};
 
