@@ -73,7 +73,7 @@ class AuthController{
 
         //custom cookie setting
         res.cookie('refreshtoken', refreshToken, {
-            maxAge: 1000*60*60*24*30,//valid for 30 days
+            maxAge: 1000 * 60 * 60 * 24 * 30,//valid for 30 days
             httpOnly: true //if this value is set the cookie is secure, js cannot read it on client prevents xss attacks.
         });
 
@@ -121,7 +121,7 @@ class AuthController{
 
         //update refresh token in db
         try{
-            await tokenService.updateRefreshToken(userid, refreshToken);
+            await tokenService.updateRefreshToken(userData._id, refreshToken);
         }catch(error){
             return res.status(500).json({message:'Internal error'});//since it is a db error
         }
