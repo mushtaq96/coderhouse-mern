@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Card from '../../../components/shared/Card/Card';
 import Button from '../../../components/shared/Button/Button';
 import styles from './StepAvatar.module.css';
@@ -15,6 +15,8 @@ const StepAvatar = ({onNext}) => {
     const dispatch = useDispatch();
     const [image, setImage] = useState('/images/profilePic-sample.png');
     const [loading, setLoading] = useState(false);
+    const [unmounted, setUnMounted] = useState(false);
+
     function captureImage(e){
         const file = e.target.files[0];
         //convert to base 64 stream
@@ -33,19 +35,28 @@ const StepAvatar = ({onNext}) => {
         setLoading(true); //start the animation 
         //use try catch for server requests
         try{
-            const {data} = await activate({name, avatar})      
+            const {data} = await activate({name, avatar}); //maybe this promise is not successfull
             if(data.auth){
-                dispatch(setAuth(data));
-
+                //check if component has not unmounted
+                if(!unmounted) dispatch(setAuth(data));
             }
             console.log(data);      
         }catch(error){
             console.log(error);
         }finally{
-            setLoading(false);//runs after try or catch phase
+            // if(isMounted) 
+            setLoading(false);//runs after try or catch phase    
         }
 
     }
+
+    //once the component is rendered, this will run once
+    useEffect(()=>{
+        return()=>{
+            //if i have any event listeners, i have to remove it here
+            setUnMounted(true);
+        }
+    }, []);
 
     if(loading) return <Loader message={"Activation in progress..."}/>;
     return( 
@@ -71,3 +82,8 @@ const StepAvatar = ({onNext}) => {
 };
 
 export default StepAvatar;
+
+
+// clean up funciton
+// when we use useEffect, inside it we can return a function to clean up
+// why? If we have listeners inside we can remove
