@@ -19,7 +19,7 @@ const Navigation = () => {
     };
 
     const dispatch = useDispatch();
-    const {isAuth, user} = useSelector(state => state.auth);
+    const {isAuth, user} = useSelector((state) => state.auth);
     async function logoutUser(){
         //
         try{
@@ -37,13 +37,16 @@ const Navigation = () => {
                 <img src="/images/llogo.png" alt="logo"/> {/*why do we what inline styles? because the .module.css file cannot modify child elements ie <LINK> in this case and further downwards */}
                 <span style={logoText}>CodersHouse</span>
             </Link> 
-            <div className={styles.navRight}>
-                <h3>{user.name}</h3>
-                <Link to="/">
-                    <img src={user.avatar} width="40" height="40" alt="avatar"/>
-                </Link>
-            </div>
-            {isAuth && <button onClick={logoutUser}>Logout</button>} 
+            {isAuth && (
+                <div className={styles.navRight}>
+                    <h3>{user?.name}</h3>
+                    <Link to="/">
+                        <img src={user?.avatar} width="40" height="40" alt="avatar"/>
+                    </Link>
+
+                    <button onClick={logoutUser}>Logout</button>
+                </div>
+            )}
             {/* this is called 'short circuit' */}
         </nav>
     );        

@@ -1,5 +1,7 @@
 import React from 'react';
-import RoomCard from '../../components/shared/RoomCard/RoomCard';
+import { useState } from 'react';
+import AddRoomModal from '../../components/AddRoomModal/AddRoomModal';
+import RoomCard from '../../components/RoomCard/RoomCard';
 import styles from './Rooms.module.css'
 
 //dummy data
@@ -74,6 +76,10 @@ const rooms = [
     },
 ];
 const Rooms = () => {
+    const [showModal, setsShowModal] = useState(false);
+    function openModal(){
+        setsShowModal(true);
+    }
     return (
         <>
             <div className='container'>
@@ -88,7 +94,7 @@ const Rooms = () => {
 
                     </div>
                     <div className={styles.right}>
-                        <button className={styles.startRoomButton}>
+                        <button onClick={openModal} className={styles.startRoomButton}>
                             <img src="images/add-room-icon.png" alt="add-room"/>
                             <span>Start a room</span>
                         </button>
@@ -101,6 +107,7 @@ const Rooms = () => {
                     ))}
                 </div>
             </div>
+            {showModal && <AddRoomModal onClose={()=>setsShowModal(false)} />}
         </>
         
     );

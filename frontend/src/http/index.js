@@ -16,6 +16,8 @@ export const verifyOtp = (data) => api.post("/api/verify-otp", data);
 export const activate = (data) => api.post("/api/activate/", data);
 export const logout = () => api.post("/api/logout"); //post is secure for logout bcz data is not visible in the URL, making it harderd to intercept.
 
+export const createRoom = (data) => api.post("/api/rooms", data);
+
 //Interceptors - sit between req and response
 
 api.interceptors.response.use(
