@@ -41,9 +41,8 @@ const Navigation = () => {
                 <div className={styles.navRight}>
                     <h3>{user?.name}</h3>
                     <Link to="/">
-                        <img src={user?.avatar} width="40" height="40" alt="avatar"/>
+                        <img src={user.avatar ? user.avatar : '/images/profilePic-sample.png'} width="40" height="40" alt="avatar"/>
                     </Link>
-
                     <button onClick={logoutUser}>Logout</button>
                 </div>
             )}
