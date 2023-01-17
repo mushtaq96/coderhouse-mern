@@ -22,8 +22,8 @@ class RoomsController {
 	}
 
 	async index(req, res) {
-		const rooms = await roomService.getAllRooms(["open"]);
-		const allRooms = rooms.map((room) => new RoomDto(room));
+		const rooms = await roomService.getAllRooms("open");
+		const allRooms = rooms.map((room) => new RoomDto(room)); //maps will be hevier, use pagination in future
 		return res.json(allRooms);
 	}
 

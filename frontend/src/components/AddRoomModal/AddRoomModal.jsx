@@ -11,8 +11,9 @@ const AddRoomModal = ({ onClose }) => {
 
     async function createRoom() {
         try {
-            if (!topic) return;
+            if (!topic) return;//if user does not enter topic
             const { data } = await create({ topic, roomType });
+            console.log(data);
             history.push(`/room/${data.id}`);
         } catch (err) {
             console.log(err.message);
