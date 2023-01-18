@@ -94,7 +94,6 @@ const Rooms = () => {
     return (
         <>
             <div className='container'>
-                this is rooms components
                 <div className={styles.roomsHeader}>
                     <div className={styles.left}>
                         <span className={styles.heading}>All voice rooms</span>     

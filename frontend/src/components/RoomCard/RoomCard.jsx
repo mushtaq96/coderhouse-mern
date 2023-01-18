@@ -2,7 +2,7 @@ import React from 'react'
 import styles from './RoomCard.module.css'
 import {useHistory} from 'react-router-dom';
 
-const RoomCard = ({room}) =>{
+const RoomCard = ({ room }) =>{
     const history = useHistory();
     return (
         <div onClick={()=>{history.push(`/room/${room.id}`)}} className={styles.card}>
