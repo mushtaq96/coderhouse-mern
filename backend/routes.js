@@ -16,5 +16,6 @@ router.post("/api/logout", authMiddleware, authController.logout);
 //middleware bcz we wanted only the loged in user to log out.
 router.post("/api/rooms", authMiddleware, roomsController.create);
 router.get("/api/rooms", authMiddleware, roomsController.index);
+router.get("/api/rooms/:roomId", authMiddleware, roomsController.show);
 
 module.exports = router;

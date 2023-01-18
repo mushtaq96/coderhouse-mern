@@ -52,7 +52,33 @@ Part - 6 :
 https://jakearchibald.github.io/svgomg/
 was used to reduce the size of the original svg for the custom loader.
 
+Part - 7/8 :
+
+-   [x] fix some errors/issues.
+-   [x] create modal for creating a new room. Store it in db
+-   [x] retrieve all opened rooms to display to the dashboard.
+
+Part - 9 :
+
+-   [x] explanation about event listeners in web socket, ice candiate, p2p basic.
+
+Part - 10 :
+
+-   [x] create an audio element for every connected client
+-   [x] websocket p2p connection
+-   [x] create modal for creating a new room. Store it in db
+
+Part - 11 :
+
+-   [x] implementing webRTC connections
+
+Notes for self :
+
+1. Custom hooks @ 9 min
+2.
+
 Future Work
 
 -   [ ] show user an alert to the end user. Why is the request not working.
         (for eg - all fields are required)
+-   [ ] actions.js is repeated in both fe and be folder
