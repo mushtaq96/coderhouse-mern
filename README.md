@@ -1,5 +1,53 @@
 # coderhouse-mern
 
+# coderhouse-mern: A Full-Stack Audio Chat Application
+
+This repository is for a MERN stack audio chat application built with inspiration from the Clubhouse app.
+
+## Key Features:
+
+* User authentication and registration
+* Profile picture upload
+* Secure token-based authentication (JWT)
+* Room creation and management
+* WebRTC peer-to-peer video chat functionality
+
+## Technologies Used:
+
+* Frontend: React, Redux Toolkit
+* Backend: Node.js, Express
+
+## Installation
+
+1. Clone the repository: `git clone https://github.com/your-username/coderhouse-mern.git`
+2. Install dependencies:
+    * Frontend: `cd frontend && yarn install`
+    * Backend: `cd backend && npm install`
+
+## Usage
+
+1. Start the backend server: `cd backend && node server.js`
+2. Start the frontend development server: `cd frontend && yarn start`
+
+## Project Structure
+
+* **frontend:** Contains React application code.
+* **backend:** Contains Node.js server and API logic.
+
+## Future Work
+
+* Implement user notifications for incoming calls and messages.
+* Enhance the UI design and user experience.
+
+## Resources
+
+* VS Code Extensions:
+    * REST Client
+* Security:
+    * Mitigating XSS Attacks with HttpOnly Cookies: [Link to relevant article]
+
+
+
 # VS Code extensions
 
 REST Client
